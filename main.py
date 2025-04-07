@@ -24,8 +24,6 @@ app = FastAPI(
     }
 )
 
-app.mount("/images", StaticFiles(directory="images"), name="images")
-
 def include_all_routes():
     routes_path = os.path.join(os.path.dirname(__file__),"app", "routes")
 
@@ -56,3 +54,4 @@ def home():
 
 # python -m app.database.init_db
 # uvicorn main:app --reload
+# uvicorn main:app --host 0.0.0.0 --port $PORT
