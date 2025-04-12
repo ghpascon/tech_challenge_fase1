@@ -5,7 +5,7 @@ from fastapi.responses import RedirectResponse
 import os
 import importlib
 from pathlib import Path
-readme_path = Path(__file__).parent / "README.md"
+readme_path = Path(__file__).parent.parent / "README.md"
 readme_content = readme_path.read_text(encoding="utf-8")
 
 app = FastAPI(
@@ -24,10 +24,12 @@ app = FastAPI(
     }
 )
 
-def include_all_routes():
-    routes_path = os.path.join(os.path.dirname(__file__),"app", "routes")
+def include_all_routes(current_path):
+    routes_path = os.path.join(os.path.dirname(__file__), current_path)
 
     for filename in os.listdir(routes_path):
+        if not filename == "__pycache__" and not "." in filename:
+            include_all_routes(current_path + '/' + filename)
         if filename.endswith(".py") and filename != "__init__.py":
             module_name = filename[:-3]
             file_path = os.path.join(routes_path, filename)
@@ -44,7 +46,8 @@ def include_all_routes():
             except Exception as e:
                 print(f"❌ Erro ao importar {filename}: {e}")
 
-include_all_routes()
+include_all_routes("routes")
+
 
 @app.get("/", include_in_schema=False)
 def home():
@@ -53,5 +56,5 @@ def home():
 
 
 # python -m app.database.init_db
-# uvicorn main:app --reload
-# uvicorn main:app --host 0.0.0.0 --port $PORT
+# uvicorn app.main:app --reload
+# uvicorn app.main:app --host 0.0.0.0 --port $PORT
