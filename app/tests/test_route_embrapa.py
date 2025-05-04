@@ -26,11 +26,11 @@ def mock_response_2():
 
 
 def fake_get_json(soup: BeautifulSoup):
-    return {"titulo": "Fake Table", "total": 10}
+    return {"titulo": "Produção de vinhos, sucos e derivados"}
 
 
 def fake_get_json2(soup: BeautifulSoup):
-    return {"titulo": "Fake Table 2", "total": 20}
+    return {"titulo": "Produção de vinhos, sucos e derivados"}
 
 @patch("app.routes.embrapa.requests.get")
 @patch("app.routes.embrapa.get_json", side_effect=fake_get_json)
