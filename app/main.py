@@ -5,7 +5,7 @@ from fastapi.responses import RedirectResponse
 import os
 import importlib
 from pathlib import Path
-readme_path = Path(__file__).parent.parent / "README.md"
+readme_path = Path(__file__).parent.parent / "SWAGGER.md"
 readme_content = readme_path.read_text(encoding="utf-8")
 
 app = FastAPI(
