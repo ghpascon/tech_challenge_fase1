@@ -50,7 +50,7 @@ def embrapa_producao(
     """
     backup_file = f'app/data/embrapa_producao/backup_file_embrapa_producao_{filtros.ano}.html'
     try:
-        url = f"http://vitibrasil.cnpuv.embapa.br/index.php?ano={filtros.ano}&opcao=opt_02"
+        url = f"http://vitibrasil.cnpuv.embrapa.br/index.php?ano={filtros.ano}&opcao=opt_02"
         print(url)
         response = requests.get(url)
         soup = BeautifulSoup(response.text, "html.parser")
